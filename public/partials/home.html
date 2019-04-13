@@ -1,9 +1,17 @@
 <h1>Home Page</h1>
 
 <p>
-    <a href="/#/add-video">Add a Video</a>
+    <a href='/#/add-video'>Add a Video</a>
 </p>
 
 <ul>
-    <li ng-repeat='video in videos'>{{video.title}}</li>
+    <li ng-repeat='video in videos' style='list-style-type: none; float:left; padding: 16px'>
+            <img src='./images/{{video._id}}.jpg' style='width:200px; height: 200px'><h4>{{video.title}}</h4>
+            <a href="/#/video/{{video._id}}" class="btn btn-info">
+                <span class="glyphicon glyphicon-pencil"></span> Edit 
+            </a>
+            <a href="/#/video/delete/{{video._id}}" class="btn btn-info btn-danger">
+                <span class="glyphicon glyphicon-remove"></span> Delete 
+            </a>
+    </li>
 </ul>

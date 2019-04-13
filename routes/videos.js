@@ -6,7 +6,16 @@ var db = monk('localhost:27017/vidzy');
 
 router.get('/', function(req, res) {
     var collection = db.get('videos');
-    collection.find({}, function(err, videos){
+
+    var searchCriteria = {};
+    var search = req.query.search;
+    // alert(search);
+    if(search) searchCriteria ={ $or: [
+        {'title': {'$regex': search, '$options':'i'}},
+        {'genre': {'$regex': search, '$options':'i'}}
+    ]};
+
+    collection.find(searchCriteria, function(err, videos){
         if (err) throw err;
       	res.json(videos);
     });
@@ -14,7 +23,7 @@ router.get('/', function(req, res) {
 
 router.get('/:id', function(req, res) {
     var collection = db.get('videos');
-    collection.find({_id: req.params.id }, function(err, video){
+    collection.findOne({_id: req.params.id }, function(err, video){
         if (err) throw err;
       	res.json(video);
     });
@@ -28,6 +37,28 @@ router.post('/', function(req, res){
         description: req.body.description
     }, function(err, video){
         if (err) throw err;
+
+        res.json(video);
+    });
+});
+
+router.put('/:id', function(req, res){
+    var collection = db.get('videos');
+    collection.update({_id: req.params.id}, {
+        title: req.body.title,
+        genre: req.body.genre,
+        description: req.body.description
+    }, function(err, video){
+        if(err) throw err;
+
+        res.json(video);
+    });
+});
+
+router.delete('/:id', function(req, res){
+    var collection = db.get('videos');
+    collection.remove({ _id: req.params.id },function(err, video){
+        if(err) throw err
 
         res.json(video);
     });

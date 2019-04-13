@@ -1,9 +1,16 @@
-<h1>Add a Video</h1>
+<h1>Video Details</h1>
 
 <form>
     <div class="form-group">
+        <img src="./images/{{video._id}}.jpg" style='width:200px; height: 200px'><br/>
+    </div>
+    <div class="form-group">
         <label>Title</label>		
         <input class="form-control" ng-model="video.title"></input>
+    </div>
+    <div class="form-group">
+        <label>Genre</label>		
+        <input class="form-control" ng-model="video.genre"></input>
     </div>
     <div class="form-group">
         <label>Description</label>
