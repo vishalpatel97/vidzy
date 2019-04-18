@@ -29,8 +29,8 @@ app.controller('HomeCtrl',
     function ($scope, $resource, $location) {
 
         var keyword = $location.search().keyword;
-
-        var Videos = $resource('/api/videos', { search: keyword });
+        var type = $location.search().genre;
+        var Videos = $resource('/api/videos', { search: keyword, genre: type });
         Videos.query(function (videos) {
             $scope.videos = videos;
         });

@@ -17,6 +17,15 @@ nav.navbar.navbar-default
               a(href='#') Contact
           form.navbar-form.navbar-right(action='/')
             .form-group
+              select.form-control(name='genre')
+                option(value='') 
+                option(value='Drama') Drama
+                option(value='Fantasy') Fantasy
+                option(value='Horror') Horror
+                option(value='Mystery') Mystery
+                option(value='SciFi') SciFi
+            .form-group &nbsp;&nbsp;&nbsp;
+            .form-group
               input.form-control(type='text', name='keyword', placeholder='Search')
             button.btn.btn-default(type='submit') Submit
         // /.navbar-collapse

@@ -7,14 +7,15 @@ var db = monk('localhost:27017/vidzy');
 router.get('/', function(req, res) {
     var collection = db.get('videos');
 
-    var searchCriteria = {};
+    var searchCriteria={};
     var search = req.query.search;
-    // alert(search);
-    if(search) searchCriteria ={ $or: [
-        {'title': {'$regex': search, '$options':'i'}},
-        {'genre': {'$regex': search, '$options':'i'}}
-    ]};
-
+    var genreFiter = req.query.genre;
+    if(search || genreFiter)
+        searchCriteria ={ 
+            'title': {'$regex': search, '$options':'i'},
+            'genre': {'$regex': genreFiter}
+        };
+    // console.log(searchCriteria);
     collection.find(searchCriteria, function(err, videos){
         if (err) throw err;
       	res.json(videos);
